@@ -1,0 +1,48 @@
+.errorPanel {
+  background-color: #F04124;
+  border-color: #F04124;
+  color: white;
+}
+.successPanel {
+  background-color: green;
+  border-color: green;
+  color: white;
+}
+.successMsg {
+  background: none repeat scroll 0 0 lightgreen;
+  color: #000;
+  display: block;
+  font-size: 0.75rem;
+  font-style: italic;
+  font-weight: normal;
+  margin-bottom: 1rem;
+  margin-top: -1px;
+  padding: 0.375rem 0.5625rem 0.5625rem;
+}
+.icon-light {
+  color: white;
+}
+textarea {
+  height: 400px;
+}
+.upper-button {
+  margin-bottom: 0;
+}
+.dropdown.button:before {
+  border-style: none;
+}
+.dropdown.button.tiny {
+  padding-right: 2em;
+}
+textarea {
+  z-index: 9999;
+}
+/*.accordion dd > a {
+  background: none repeat scroll 0 0 #fff;
+  color: #222222;
+  display: block;
+  font-family:"Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  padding: 0;
+}
+*/
