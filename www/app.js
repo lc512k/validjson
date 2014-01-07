@@ -8,7 +8,7 @@ requirejs.config({
     data: '../data',
     jquery: 'jquery',
     mustache: 'mustache',
-    foundation: 'foundation',
+    foundation: 'foundation/foundation',
     text: 'text',
     tv4: 'tv4',
     modernizr: 'vendor/custom.modernizr',
@@ -21,22 +21,22 @@ requirejs.config({
       deps: ['jquery'],
       exports: 'tv4'
     },
-    'modernizr': {
-      deps: ['jquery']
-    },
     'foundation': {
       deps: ['jquery', 'modernizr']
     },
+    'modernizr': {
+      deps: ['jquery']
+    },
     'tooltip': {
-      deps: ['jquery', 'foundation/foundation'],
+      deps: ['jquery', 'foundation'],
       exports: 'tooltip'
     },
     'dropdown': {
-      deps: ['jquery', 'foundation/foundation'],
+      deps: ['jquery', 'foundation'],
       exports: 'dropdown'
     },
     'accordion': {
-      deps: ['jquery', 'foundation/foundation'],
+      deps: ['jquery', 'foundation'],
       exports: 'accordion'
     }
   }

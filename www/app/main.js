@@ -1,24 +1,33 @@
-/*global define*/
+/*global define, console*/
 define([
     'jquery',
     'mustache',
-    'text',
-    'modernizr',
-    'foundation/foundation',
+    'foundation',
     'tv4',
-    'foundation/foundation.tooltip',
-    'foundation/foundation.dropdown',
-    'foundation/foundation.accordion',
+    /*'text',*/
     'text!templates/menu.html',
     'data/menuData',
     'text!templates/changelog.html',
     'data/changelogData',
     'text!templates/roadmap.html',
-    'data/roadmapData'
+    'data/roadmapData',
+    'modernizr',
+    'tooltip',
+    'dropdown',
+    'accordion'
   ],
-  function($, Mustache, Text, Modernizr, Foundation, tv4, tooltip, dropdown, accordion,
-    menuTemplate, menuData, changelogTemplate, changelogData, roadmapTemplate, roadmapData) {
+  function($, Mustache, Foundation, tv4, menuTemplate, menuData, changelogTemplate, changelogData, roadmapTemplate, roadmapData) {
     'use strict';
+    console.log('$', $);
+    console.log('Mustache', Mustache);
+    console.log('Foundation', Foundation);
+    console.log('tv4', tv4);
+    console.log('menuTemplate', menuTemplate);
+    console.log('menuData', menuData);
+    console.log('changelogTemplate', changelogTemplate);
+    console.log('changelogData', changelogData);
+    console.log('roadmapTemplate', roadmapTemplate);
+    console.log('roadmapData', roadmapData);
     var $schemaErrors, $schemaTextarea, $jsonErrors, $jsonTextarea, $success, $error, $validationErrorMsg, $validationSuccessMsg, $anyTextarea,
       $exampleButton, $reformatters, reformatterJSON, reformatterSchema, loadTemplates, bindEvents, init,
       $schemaMenu, $jsonMenu, $changelog, $roadmap;
@@ -36,7 +45,6 @@ define([
 
     $anyTextarea = $('textarea');
     $exampleButton = $('#example');
-    $reformatters = $('.js-reformat');
 
     $schemaMenu = $('.js-schema-drop');
     $jsonMenu = $('.js-json-drop');
@@ -57,6 +65,9 @@ define([
       menuHTML = Mustache.render(menuTemplate, menuData);
       $schemaMenu.append(menuHTML);
       $jsonMenu.append(menuHTML);
+
+      $reformatters = $('.js-reformat');
+      console.log('$reformatters', $reformatters);
 
       roadmapHTML = Mustache.render(roadmapTemplate, roadmapData);
       $roadmap.append(roadmapHTML);
@@ -108,7 +119,8 @@ define([
               $success.hide();
             }
           } catch (error) {
-            //console.warn(error);
+            / /
+            console.warn(error);
           }
         } else {
           $success.hide();
@@ -174,14 +186,16 @@ define([
         }
       });
 
-      //move out - make fcn that generates random example
+      //TODO move out - make fcn that generates random example
       $exampleButton.on('click', function() {
         $schemaTextarea.val('{"title": "Example Schema","type": "object","properties": {"firstName": {"type": "string"},"lastName": {"type": "string"},"age": {"description": "Age in years","type": "integer","minimum": 0}},"required": ["firstName","lastName"] }');
         $jsonTextarea.val('{"firstName": "Jason","lastName": "Smith","age": 22}');
         $anyTextarea.trigger('keyup');
-        //refactor into "prettify" function
-        $jsonTextarea.val(JSON.stringify(JSON.parse($jsonTextarea.val()), null, '  '));
-        $schemaTextarea.val(JSON.stringify(JSON.parse($schemaTextarea.val()), null, '  '));
+        $anyTextarea.trigger('focusout');
+        //TODO refactor into "prettify" function
+        /*        $jsonTextarea.val(JSON.stringify(JSON.parse($jsonTextarea.val()), null, '  '));
+        $schemaTextarea.val(JSON.stringify(JSON.parse($schemaTextarea.val()), null, '  '));*/
+
       });
     };
 
@@ -191,7 +205,5 @@ define([
       loadTemplates();
       bindEvents();
     };
-
     init();
-    //});
   });
