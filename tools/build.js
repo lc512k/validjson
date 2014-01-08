@@ -1,7 +1,8 @@
 ({
-  baseUrl: '../www/lib',
+  baseUrl: '../lib',
   name: 'app',
-  out: '../www/app-built.js',
-  mainConfigFile: '../www/app.js',
+  out: '../app-built.js',
+  mainConfigFile: '../app.js',
+  optimize: 'uglify2',
   findNestedDependencies: true
 })
