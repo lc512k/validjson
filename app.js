@@ -6,12 +6,13 @@ requirejs.config({
     app: '../app',
     templates: '../templates',
     data: '../data',
+    extras: '../extras',
     jquery: 'jquery',
     mustache: 'mustache',
     foundation: 'foundation/foundation',
     text: 'text',
     tv4: 'tv4',
-    modernizr: 'vendor/custom.modernizr',
+    modernizr: 'modernizr',
     tooltip: 'foundation/foundation.tooltip',
     dropdown: 'foundation/foundation.dropdown',
     accordion: 'foundation/foundation.accordion'
@@ -42,5 +43,4 @@ requirejs.config({
   }
 });
 
-// Start the main app logic.
-requirejs(['app/main']);
+requirejs(['app/main', 'extras/google']);

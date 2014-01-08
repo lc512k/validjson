@@ -1,10 +1,9 @@
-/*global define, console*/
+/* global define, console */
 define([
     'jquery',
     'mustache',
     'foundation',
     'tv4',
-    /*'text',*/
     'text!templates/menu.html',
     'data/menuData',
     'text!templates/changelog.html',
@@ -18,19 +17,20 @@ define([
   ],
   function($, Mustache, Foundation, tv4, menuTemplate, menuData, changelogTemplate, changelogData, roadmapTemplate, roadmapData) {
     'use strict';
-    console.log('$', $);
-    console.log('Mustache', Mustache);
-    console.log('Foundation', Foundation);
-    console.log('tv4', tv4);
-    console.log('menuTemplate', menuTemplate);
-    console.log('menuData', menuData);
-    console.log('changelogTemplate', changelogTemplate);
-    console.log('changelogData', changelogData);
-    console.log('roadmapTemplate', roadmapTemplate);
-    console.log('roadmapData', roadmapData);
+    // console.log('$', $);
+    // console.log('Mustache', Mustache);
+    // console.log('Foundation', Foundation);
+    // console.log('tv4', tv4);
+    // console.log('menuTemplate', menuTemplate);
+    // console.log('menuData', menuData);
+    // console.log('changelogTemplate', changelogTemplate);
+    // console.log('changelogData', changelogData);
+    // console.log('roadmapTemplate', roadmapTemplate);
+    // console.log('roadmapData', roadmapData);
+
     var $schemaErrors, $schemaTextarea, $jsonErrors, $jsonTextarea, $success, $error, $validationErrorMsg, $validationSuccessMsg, $anyTextarea,
       $exampleButton, $reformatters, reformatterJSON, reformatterSchema, loadTemplates, bindEvents, init,
-      $schemaMenu, $jsonMenu, $changelog, $roadmap;
+      $schemaMenu, $jsonMenu, $about, $changelog, $roadmap;
 
     $schemaErrors = $('#schemaErrors');
     $schemaTextarea = $('#schema');
@@ -46,28 +46,23 @@ define([
     $anyTextarea = $('textarea');
     $exampleButton = $('#example');
 
-    $schemaMenu = $('.js-schema-drop');
-    $jsonMenu = $('.js-json-drop');
+    $schemaMenu = $('.js-drop-schema');
+    $jsonMenu = $('.js-drop-json');
 
+    $about = $('.js-about');
     $changelog = $('.js-changelog');
     $roadmap = $('.js-roadmap');
 
     loadTemplates = function() {
-      var menuHTML, roadmapHTML, changelogHTML;
+      var menuHTML, roadmapHTML, changelogHTML, aboutHTML;
       Mustache.parse(menuTemplate);
       Mustache.parse(roadmapTemplate);
       Mustache.parse(changelogTemplate);
 
-      console.info(menuData);
-      console.info(roadmapData);
-      console.info(changelogData);
-
       menuHTML = Mustache.render(menuTemplate, menuData);
       $schemaMenu.append(menuHTML);
       $jsonMenu.append(menuHTML);
-
-      $reformatters = $('.js-reformat');
-      console.log('$reformatters', $reformatters);
+      $reformatters = $('[class*=js-drop]').find('a');
 
       roadmapHTML = Mustache.render(roadmapTemplate, roadmapData);
       $roadmap.append(roadmapHTML);
@@ -78,7 +73,6 @@ define([
 
     bindEvents = function() {
       $anyTextarea.on('keyup', function(event) {
-        console.log('keyup@');
         var currentTextarea, result, schemaErrors, jsonErrors, $this, $errorMsg, $successMsg;
         $this = $(this);
         $errorMsg = $this.parent().find('.js-error-msg');
@@ -104,10 +98,8 @@ define([
         schemaErrors = ($schemaErrors.html()).length > 0;
 
         if ($this.val().length > 0 && !jsonErrors && !schemaErrors) {
-          console.log('tv4@', tv4);
           try {
             result = tv4.validate(window.json, window.schema);
-            console.log('result@', result, tv4);
             if (result === true) {
               $success.show();
               $validationSuccessMsg.html('Your JSON is valid against your schema');
@@ -119,7 +111,6 @@ define([
               $success.hide();
             }
           } catch (error) {
-            / /
             console.warn(error);
           }
         } else {
@@ -128,7 +119,7 @@ define([
         }
       });
 
-      $anyTextarea.on('focusout', function( /*e*/ ) {
+      $anyTextarea.on('focusout', function() {
         var $this, escapeChar;
         escapeChar = '  ';
         $this = $(this);
@@ -140,15 +131,12 @@ define([
           }
           $this.val(JSON.stringify(JSON.parse($(this).val()), null, escapeChar));
         } catch (error) {
-          //not a valid JSON typed in yet
-          //console.warn(error);
+          console.warn(error);
         }
       });
 
       $reformatters.on('click', function(e) {
         var $linkedTextarea, escapeChar, action, target, $thisTick, $allTicks;
-        console.log('target', e.currentTarget);
-        //console.warn($(this), e.currentTarget, $(e.currentTarget).parents('.js-box'));
         $linkedTextarea = $(this).parents('.js-box').find('textarea');
         $thisTick = $(this).find('.fi-check');
         $allTicks = $(this).parent().parent().find('.fi-check');
@@ -176,7 +164,7 @@ define([
         try {
           $linkedTextarea.val(JSON.stringify(JSON.parse($($linkedTextarea).val()), null, escapeChar));
         } catch (error) {
-          //not a valid JSON typed in yet
+          console.warn(error);
         }
 
         if ($linkedTextarea.prop('id') === 'schema') {
@@ -190,17 +178,13 @@ define([
       $exampleButton.on('click', function() {
         $schemaTextarea.val('{"title": "Example Schema","type": "object","properties": {"firstName": {"type": "string"},"lastName": {"type": "string"},"age": {"description": "Age in years","type": "integer","minimum": 0}},"required": ["firstName","lastName"] }');
         $jsonTextarea.val('{"firstName": "Jason","lastName": "Smith","age": 22}');
+        //TODO refactor prettify and validation into functions. Don't trigger.
         $anyTextarea.trigger('keyup');
         $anyTextarea.trigger('focusout');
-        //TODO refactor into "prettify" function
-        /*        $jsonTextarea.val(JSON.stringify(JSON.parse($jsonTextarea.val()), null, '  '));
-        $schemaTextarea.val(JSON.stringify(JSON.parse($schemaTextarea.val()), null, '  '));*/
-
       });
     };
 
     init = function() {
-      //Init foundation!
       $(document).foundation();
       loadTemplates();
       bindEvents();

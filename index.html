@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="css/foundation.min.css" />
   <link rel="stylesheet" href="css/foundation-icons.min.css" />
   <link rel="stylesheet" href="css/main.css" />
-  <script data-main="app.js" src="lib/require.js"></script>
+  <script data-main="app-built.js" src="lib/require.js"></script>
 </head>
 
 <body>
@@ -39,7 +39,7 @@
               </a>
             </div>
             <br>
-            <ul id="drop1" data-dropdown-content class="f-dropdown js-schema-drop">
+            <ul id="drop1" data-dropdown-content class="f-dropdown js-drop-schema">
 
             </ul>
             <textarea wrap="off" class="error" id="schema" placeholder="Paste your JSON Schema here"></textarea>
@@ -59,7 +59,7 @@
               </a>
             </div>
             <br>
-            <ul id="drop2" data-dropdown-content class="f-dropdown js-json-drop">
+            <ul id="drop2" data-dropdown-content class="f-dropdown js-drop-json">
             </ul>
             <textarea wrap="off" class="error" id="json" placeholder="Paste your JSON data here"></textarea>
             <small id="jsonErrors" style="display: none;" class="js-error-msg error"></small>
@@ -82,8 +82,8 @@
   </div>
 
   <div class="row">
-    <div class="small-12 columns panel ">
-      <dl class="accordion " data-accordion>
+    <div class="small-12 columns panel">
+      <dl class="accordion" data-accordion>
         <dd>
           <a href="#panel1">About JSON Schema</a> 
           <div id="panel1" class="content active">
@@ -122,28 +122,13 @@
   <hr>
   <div class="row">
     <div class="small-12 medium-12 large-12 columns">
-      <small class="left">© 2012-2013 <a href="http://www.laura-carvajal.com" target="_blank">Laura Carvajal</a>. Questions? <a href="mailto:validjson@gmail.com"> Bring 'em!</a>
+      <small class="left">© 2012-2013 <a href="http://www.laura-carvajal.com" target="_blank">Laura Carvajal</a>.
       </small>
       <small class="right">
-        <strong>ValidJson.com</strong>is powered by <a target="_blank" href="https://github.com/geraintluff/tv4">Geraintluff's Tiny Validator</a>. Built with jQuery, <a target="_blank" href="http://foundation.zurb.com/">Foundation 5</a>, <a target="_blank" href="http://mustache.github.com/">Mustache</a>, <a target="_blank" href="http://requirejs.org/">RequireJS</a>, <a href="http://qunitjs.com/">QUnit</a> and <a href="http://www.loremipsumjs.com/">LoremIpsumJS</a>.
+        <strong>ValidJson.com</strong>is powered by <a href="http://aws.amazon.com/">AWS</a> and <a target="_blank" href="https://github.com/geraintluff/tv4">Geraintluff's Tiny Validator</a>. Built with jQuery, <a target="_blank" href="http://foundation.zurb.com/">Foundation 5</a>, <a target="_blank" href="http://mustache.github.com/">Mustache</a>, <a target="_blank" href="http://requirejs.org/">RequireJS</a>, <a href="http://qunitjs.com/">QUnit</a> and <a href="http://www.loremipsumjs.com/">LoremIpsumJS</a>.
       </small>
     </div>
   </div>
-  <script>
-  (function(i, s, o, g, r, a, m) {
-    i['GoogleAnalyticsObject'] = r;
-    i[r] = i[r] || function() {
-      (i[r].q = i[r].q || []).push(arguments)
-    }, i[r].l = 1 * new Date();
-    a = s.createElement(o),
-    m = s.getElementsByTagName(o)[0];
-    a.async = 1;
-    a.src = g;
-    m.parentNode.insertBefore(a, m)
-  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-  ga('create', 'UA-46065942-1', 'validjson.com');
-  ga('send', 'pageview');
-  </script>
 </body>
 
 </html>
